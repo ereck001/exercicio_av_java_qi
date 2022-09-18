@@ -1,3 +1,10 @@
+package br.edu.qi.projasigno;
+
+import android.os.Build;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+
 import java.time.LocalDate;
 
 public class Horoscopo {
@@ -103,6 +110,7 @@ public class Horoscopo {
         }
         return signo;
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public String parabenizar(){
         String  dia, mes, ano, strData;
         
@@ -122,6 +130,7 @@ public class Horoscopo {
         return diaAt == diaNas && mesAt == mesNas?"Feliz Aniversário!!!\n":"";
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public byte calcularIdade(){
         String  dia, mes, ano, strData;
         int idade,res;
@@ -153,14 +162,20 @@ public class Horoscopo {
     }
 
 
+
+    @NonNull
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public String toString() {
-        return 
-        parabenizar()+
-        "Sua idade é " + calcularIdade()+"\n"+
-        "Seu aniversário é "+this.diaNas+" / "+this.mesNas+"\n"+
-        "Seu signo é "+ mostrarSigno();
-
+        if(validarData()) {
+            return
+                    parabenizar() +
+                            this.nome + ", sua idade é " + calcularIdade() + "\n" +
+                            "Seu aniversário é  " + this.diaNas + " / " + this.mesNas + "\n" +
+                            "Seu signo é " + mostrarSigno();
+        }else {
+            return  " Dados inválidos!";
+        }
     }
     
 
